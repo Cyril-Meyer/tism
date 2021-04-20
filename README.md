@@ -6,10 +6,10 @@ TensorFlow Image Segmentation Models
 * Build **2D** and **3D** models
 * 2 models architectures
   * UNet (skip concatenation)
-  * *LinkNet* (skip addition)
+  * LinkNet (skip addition)
 * 3 backbones building blocks
-  * VGG-like
-  * *ResNet-like*
+  * VGG-like (basic convolutions with increasing number of filters each level)
+  * ResNet-like (add the input to the output of the block)
   * *DenseNet-like*
 * Create and use your own architecture or backbone easily
 

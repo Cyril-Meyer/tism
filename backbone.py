@@ -21,3 +21,22 @@ class VGG:
             X = tf.keras.layers.Activation(self.activation)(X)
 
         return X, block_depth
+
+
+class ResBlock:
+    def __init__(self, backbone=VGG()):
+        self.backbone = backbone
+        self.conv = tf.keras.layers.Conv2D
+
+    def set3D(self):
+        self.conv = tf.keras.layers.Conv3D
+        self.backbone.set3D()
+
+    def __call__(self, X, level):
+
+        out, block_depth = self.backbone(X, level)
+        res = self.conv(filters=block_depth, kernel_size=1)(X)
+
+        X = tf.keras.layers.Add()([res, out])
+
+        return X, block_depth
