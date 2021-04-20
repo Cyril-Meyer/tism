@@ -1,11 +1,7 @@
 import tensorflow as tf
-import architecture
-import backbone
+import architecture as a
+import backbone as b
 
 
-def get(architecture=architecture.UNet(input_shape=(256, 256, 1)), backbone_encoder=backbone.VGG(), backbone_decoder=backbone.VGG(length=1)):
+def get(architecture=a.UNet(), backbone_encoder=b.VGG(), backbone_decoder=b.VGG(initial_block_length=1)):
     return architecture(backbone_encoder, backbone_decoder)
-
-
-model = get()
-model.summary()
