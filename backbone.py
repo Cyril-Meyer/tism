@@ -40,8 +40,12 @@ class ResBlock:
     def __call__(self, X, level):
 
         out, block_depth = self.backbone(X, level)
+        
         res = self.conv(filters=block_depth, kernel_size=1)(X)
+        res = tf.keras.layers.Activation('relu')(res)
+        res = tf.keras.layers.BatchNormalization()(res)
 
         X = tf.keras.layers.Add()([res, out])
+        X = tf.keras.layers.Activation('relu')(X)
 
         return X, block_depth
