@@ -14,6 +14,11 @@ TensorFlow Image Segmentation Models
 * Create and use your own architecture or backbone easily
 
 
+**Installation**  
+`pip install git+git://github.com/Cyril-Meyer/tism`
+
+**Usage example** in [example.py](example.py)
+
 The interesting features of this library are the **3D** backbones and the possibility of creating your own backbone.
 If you want to make 2D image segmentation, I recommend you the very cool
 [qubvel/segmentation_models](https://github.com/qubvel/segmentation_models)
