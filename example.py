@@ -1,7 +1,8 @@
 import tensorflow as tf
-import model as tism
-import architecture
-import backbone
+import tism
+from tism import architecture, backbone
+from tism import model as tism
+
 
 model = tism.get(architecture=architecture.UNet(input_shape=(256, 256, 1)))
 
@@ -25,7 +26,8 @@ model = tism.get(architecture=architecture.LinkNet(input_shape=(None, None, 1), 
 
 model.summary(line_length=120)
 
-# create tensorboard visible logs
+
+#  create tensorboard visible logs
 '''
 @tf.function
 def tf_trace(x):
