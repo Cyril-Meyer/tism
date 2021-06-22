@@ -65,10 +65,7 @@ class UNet:
             X, _ = backbone_decoder(X, i-1)
 
         # output activation
-        if self.output_classes > 2:
-            outputs = self.conv(self.output_classes, 1, activation=self.output_activation, name="output")(X)
-        else:
-            outputs = self.conv(1, 1, activation=self.output_activation, name="output")(X)
+        outputs = self.conv(self.output_classes, 1, activation=self.output_activation, name="output")(X)
 
         model = tf.keras.Model(inputs=inputs, outputs=outputs, name="TISM_UNET")
         return model
@@ -137,10 +134,7 @@ class LinkNet:
             X, _ = backbone_decoder(X, i-1)
 
         # output activation
-        if self.output_classes > 2:
-            outputs = self.conv(self.output_classes, 1, activation=self.output_activation, name="output")(X)
-        else:
-            outputs = self.conv(1, 1, activation=self.output_activation, name="output")(X)
+        outputs = self.conv(self.output_classes, 1, activation=self.output_activation, name="output")(X)
 
         model = tf.keras.Model(inputs=inputs, outputs=outputs, name="TISM_LINKNET")
         return model
