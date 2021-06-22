@@ -3,13 +3,14 @@ import numpy as np
 
 
 class UNet:
-    def __init__(self, input_shape=(None, None, 1), depth=3, output_classes=2, output_activation='sigmoid', op_dim=2, dropout=0.25):
+    def __init__(self, input_shape=(None, None, 1), depth=3, output_classes=2, output_activation='sigmoid', op_dim=2, dropout=0.25, pool_size=2):
         self.input_shape = input_shape
         self.depth = depth
         self.output_classes = output_classes
         self.output_activation = output_activation
         self.op_dim = op_dim
         self.dropout = dropout
+        self.pool_size = pool_size
 
         if op_dim == 2: # default
             self.conv = tf.keras.layers.Conv2D
@@ -43,7 +44,7 @@ class UNet:
             encoder_out.append(X)
             encoder_out_depth.append(depth)
             # pooling
-            X = self.pool(2)(X)
+            X = self.pool(self.pool_size)(X)
 
         # center
         # dropout
