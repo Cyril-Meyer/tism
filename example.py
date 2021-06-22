@@ -24,6 +24,10 @@ model = tism.get(architecture=architecture.LinkNet(input_shape=(None, None, 1), 
                  backbone_encoder=backbone.ResBlock(backbone.VGG()),
                  backbone_decoder=backbone.VGG(initial_block_length=1))
 
+model = tism.get(architecture=architecture.UNet(input_shape=(16, 256, 256, 1), op_dim=3, pool_size=(1, 2, 2)),
+                 backbone_encoder=backbone.VGG(),
+                 backbone_decoder=backbone.VGG(initial_block_length=1))
+
 model.summary(line_length=120)
 
 

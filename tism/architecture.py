@@ -59,7 +59,10 @@ class UNet:
         # decoder
         for i in range(self.depth - 1,  0, -1):
             # up-sample
-            X = self.conv_t(encoder_out_depth[i - 1], 2, 2, padding='valid')(X)
+            if self.pool_size == 2:
+                X = self.conv_t(encoder_out_depth[i - 1], 2, 2, padding='valid')(X)
+            else:
+                X = self.conv_t(encoder_out_depth[i - 1], 2, self.pool_size, padding='same')(X)
             # concatenate
             X = tf.keras.layers.Concatenate()([X, encoder_out[i - 1]])
             # filters
