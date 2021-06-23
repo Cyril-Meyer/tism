@@ -2,12 +2,12 @@ import tensorflow as tf
 
 
 class VGG:
-    def __init__(self, initial_block_depth=32, initial_block_length=2, activation='relu', kernel_size=3, batch_normalization=False):
+    def __init__(self, initial_block_depth=32, initial_block_length=2, activation='relu', kernel_size=3, normalization=False):
         self.initial_block_depth = initial_block_depth
         self.initial_block_length = initial_block_length
         self.activation = activation
         self.kernel_size = kernel_size
-        self.batch_normalization = batch_normalization
+        self.normalization = normalization
 
         self.conv = tf.keras.layers.Conv2D
 
@@ -22,8 +22,10 @@ class VGG:
                           kernel_initializer="he_normal", padding="same")(X)
             X = tf.keras.layers.Activation(self.activation)(X)
 
-            if self.batch_normalization:
+            if self.normalization == "BatchNormalization":
                 X = tf.keras.layers.BatchNormalization()(X)
+            elif self.normalization == "LayerNormalization":
+                X = tf.keras.layers.LayerNormalization()(X)
 
         return X, block_depth
 

@@ -7,7 +7,7 @@ requirements = []
 
 setuptools.setup(
     name="tism",
-    version="1.0.4",
+    version="1.0.5",
     author="Cyril Meyer",
     author_email="contact@cyrilmeyer.eu",
     description="TensorFlow Image Segmentation Models",

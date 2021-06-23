@@ -30,7 +30,7 @@ model = tism.get(architecture=architecture.UNet(input_shape=(16, 256, 256, 1), o
 
 model = tism.get(architecture=architecture.UNet(input_shape=(16, 256, 256, 1), op_dim=3, pool_size=(1, 2, 2), multiple_outputs=True),
                  backbone_encoder=backbone.VGG(),
-                 backbone_decoder=backbone.VGG(initial_block_length=1))
+                 backbone_decoder=backbone.VGG(initial_block_length=1, normalization="BatchNormalization"))
 
 
 model.summary(line_length=120)
