@@ -3,7 +3,7 @@ import numpy as np
 
 
 class UNet:
-    def __init__(self, input_shape=(None, None, 1), depth=3, output_classes=2, output_activation='sigmoid', op_dim=2, dropout=0.25, pool_size=2):
+    def __init__(self, input_shape=(None, None, 1), depth=3, output_classes=2, output_activation='sigmoid', op_dim=2, dropout=0.25, pool_size=2, multiple_outputs=False):
         self.input_shape = input_shape
         self.depth = depth
         self.output_classes = output_classes
@@ -11,6 +11,7 @@ class UNet:
         self.op_dim = op_dim
         self.dropout = dropout
         self.pool_size = pool_size
+        self.multiple_outputs = multiple_outputs
 
         if op_dim == 2: # default
             self.conv = tf.keras.layers.Conv2D
@@ -69,7 +70,12 @@ class UNet:
             X, _ = backbone_decoder(X, i-1)
 
         # output activation
-        outputs = self.conv(self.output_classes, 1, activation=self.output_activation, name="output")(X)
+        if self.multiple_outputs:
+            outputs = []
+            for c in range(self.output_classes):
+                outputs.append(self.conv(1, 1, activation=self.output_activation, name="output_" + str(c+1))(X))
+        else:
+            outputs = self.conv(self.output_classes, 1, activation=self.output_activation, name="output")(X)
 
         model = tf.keras.Model(inputs=inputs, outputs=outputs, name="TISM_UNET")
         return model
